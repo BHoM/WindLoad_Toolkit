@@ -11,6 +11,7 @@
     <RootNamespace>BH.Engine.Adapters.WindLoad</RootNamespace>
     <FileVersion>6.1.0.0</FileVersion>
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<Configurations>Debug;Release;Test</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +27,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y" />
+    <Exec Command="if not &quot;$(ConfigurationName)&quot; == &quot;Test&quot; (xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y)" />
   </Target>
 
 </Project>

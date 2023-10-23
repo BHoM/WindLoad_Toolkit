@@ -1,0 +1,95 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>BH.Test.Adapter.WindLoad</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+    <PackageReference Include="coverlet.collector" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WindLoad_Adapter\WindLoad_Adapter.csproj" />
+    <ProjectReference Include="..\..\..\WindLoad_Engine\WindLoad_Engine.csproj" />
+    <ProjectReference Include="..\..\..\WindLoad_oM\WindLoad_oM.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Adapter_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Adapter_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Analytical_Engine">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Analytical_Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Analytical_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Analytical_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BHoM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BHoM_Adapter">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BHoM_Engine">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Data_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dimensional_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Geometry_Engine">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Geometry_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Physical_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spatial_Engine">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Spatial_Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spatial_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Spatial_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Structure_AdapterModules">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_AdapterModules.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Structure_Engine">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Structure_oM">
+      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_oM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
