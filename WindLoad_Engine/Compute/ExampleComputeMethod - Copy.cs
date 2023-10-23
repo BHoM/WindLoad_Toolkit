@@ -22,31 +22,21 @@
 
 using BH.oM.Base;
 using BH.oM.Base.Attributes;
-using BH.oM.Adapters.SoftwareName;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace BH.Engine.Adapters.SoftwareName
+
+namespace BH.Engine.Adapters.WindLoad
 {
-    public static partial class Modify
+    public static partial class Compute
     {
-        /***************************************************/
-        /**** Public Methods                            ****/
-        /***************************************************/
+      
 
-        [Description("Description of the method. Will appear in the UI tooltip.")]
-        [Input("objectToModify", "Description of the input. Will appear in the UI tooltip.")]
-        [Output("outputName", "Description of the output. Will appear in the UI tooltip.")]
-        public static ExampleObject ExampleCreateMethod(ExampleObject objectToModify)
-        {
-            // This method will appear in every UI (e.g. Grasshopper) as a component.
-            // Find it using the CTRL+Shift+B search bar, or by navigating the `Create` component (Engine tab) right click menu.
-            throw new NotImplementedException();
-        }
-
-        /***************************************************/
+        
 
     }
 }

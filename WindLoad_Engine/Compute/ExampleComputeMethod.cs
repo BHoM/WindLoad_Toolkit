@@ -20,39 +20,53 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Adapters.SoftwareName;
 using BH.oM.Base;
 using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace BH.Engine.Adapters.SoftwareName
+
+namespace BH.Engine.Adapters.WindLoad
 {
-    public static partial class Query
+    public static partial class Compute
     {
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
 
         [Description("Description of the method. Will appear in the UI tooltip.")]
-        [Input("exampleObject", "Description of the input. Will appear in the UI tooltip.")]
-        [Input("additionalInput", "Description of the input. Will appear in the UI tooltip.")]
+        [Input("someInput1", "Description of the input. Will appear in the UI tooltip.")]
+        [Input("someInput2", "Description of the input. Will appear in the UI tooltip.")]
         [Output("outputName", "Description of the output. Will appear in the UI tooltip.")]
-        public static string ExampleQueryMethod(this ExampleObject exampleObject, string additionalInput = "")
+        public static string ExampleComputeMethod(string data = "wind", string EC = "din-en-1991-1-3", string location = "messe,duesseldorf",string email = "john.doe@134.com",string hash = "123")
         {
-            // NOTE: Extension method
-            // Query methods should return some data that is derivable from a main input object on which they operate upon. 
-            // For this reason, they are to be written as extension methods (using the `this` keyword on the first input).
+            HttpClient Dlubal = new HttpClient();
+
+            Dlubal.BaseAddress = new Uri("https://external-crm.dlubal.com/loadzones/data.aspx");
+
 
             // This method will appear in every UI (e.g. Grasshopper) as a component.
-            // Find it using the CTRL+Shift+B search bar, or by navigating the `Create` component (Engine tab) right click menu.
-            return exampleObject.SomeStringProperty + exampleObject.SomeNumberProperty.ToString() + additionalInput;
+            // Find it using the CTRL+Shift+B search bar, or by navigating the `Compute` component (Engine tab) right click menu.
+            // throw new NotImplementedException();
+            //deserialisers - newtonsoft 
+
+            return GetAsync(Dlubal, data, EC, location, email, hash ).Result;
         }
 
         /***************************************************/
 
+        private static async Task<string> GetAsync(HttpClient httpClient, string data = "wind", string EC = "din-en-1991-1-3", string location = "messe,duesseldorf", string email = "john.doe@134.com", string hash = "123")
+        {
+            HttpResponseMessage response = await httpClient.GetAsync($"https://external-crm.dlubal.com/loadzones/data.aspx?map={data}-{EC}&place={location}&language=en&login={email}&hash={hash}");
+            response.EnsureSuccessStatusCode();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            return jsonResponse;
+        }
     }
 }
 
