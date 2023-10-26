@@ -41,6 +41,7 @@ using BH.oM.Physical.Constructions;
 using BH.Engine.Base;
 using BH.Engine.Spatial;
 using BH.oM.Structure.MaterialFragments;
+using BH.oM.Structure.Loads;
 
 namespace BH.Engine.Adapters.WindLoad
 {
@@ -48,7 +49,7 @@ namespace BH.Engine.Adapters.WindLoad
     {
 
 
-        public static List<PolyCurve> InclinedTributaryAreas(Polyline inputOutline, List<Line> wallsLines)
+        public static List<PlanarSurface> InclinedTributaryAreas(Polyline inputOutline, List<Polyline> wallsLines,Construction construc)
         {
             if (!inputOutline.IsClosed()) { BH.Engine.Base.Compute.RecordWarning($"The Polyline {inputOutline} is not closed! If possible the curve will be closed!"); };
             inputOutline = inputOutline.Close();
@@ -60,49 +61,30 @@ namespace BH.Engine.Adapters.WindLoad
             var normalOutline = BH.Engine.Geometry.Query.Normal(inputOutline);
             var angle = BH.Engine.Geometry.Query.Angle(normalOutline, zAxis);
             var rotationOrigin = BH.Engine.Geometry.Query.Centroid(inputOutline);
-            var rotationAxis = BH.Engine.Geometry.Query.CrossProduct(zAxis, normalOutline);
+            var rotationAxis = BH.Engine.Geometry.Query.CrossProduct(normalOutline, zAxis);
 
             //Geometry Rotated into the XY Plane
             var outlineXY = BH.Engine.Geometry.Modify.Rotate(inputOutline, rotationOrigin, rotationAxis, angle);
-            var wallsXY = joindWallLines.Select(x => BH.Engine.Geometry.Modify.Rotate(x, rotationOrigin, rotationAxis, angle)).ToList();
+            var wallsXYLines = wallsLines.Select(x => BH.Engine.Geometry.Modify.Rotate(x, rotationOrigin, rotationAxis, angle)).ToList();
 
 
             //Parameter preparation for TributaryArea calculation
             IElement2D outlineXY2D = Engine.Geometry.Create.PlanarSurface(outlineXY);
 
-            //TODO: Construction call not working yes --> fix this
-            var concrete = BH.Engine.Library.Query.Match("Concrete", "C25/30", true, true).DeepClone() as IMaterialFragment;
-            var construction = BH.Engine.Library.Query.Match("Constructions", "generic_partition", true, true) as Construction;
-            Construction c = Engine.Physical.Create.Construction("");
-
-            var ps = Engine.Geometry.Create.PlanarSurface(joindWallLines.First(), null);
-            //PlanarSurface ps = new PlanarSurface() { ExternalBoundary = joindWallLines.First() };
-            var ds2d = Engine.Geometry.Create.NewInternalElement2D(ps);
-
-
             //Generate Wall and extract Element2d and Flatten to list
-            var wallsNested = wallsLines.Select(l => BH.Engine.Physical.Create.Wall(construction, l).InternalElements2D()).ToList();
-            var wallsFlat = wallsNested.SelectMany(x => x).ToList();
+            var wallList = wallsXYLines.Select(l => BH.Engine.Physical.Create.Wall(new Line() {Start=l.ControlPoints().First(),End=l.ControlPoints().Last() },-1,construc,Offset.Undefined,"")).ToList();
+            var wall2DElements = wallList.Select(k=>(IElement2D)k).ToList();
 
-            //var tributaryAreasXY = Structure.Compute.TributaryAreas(new List<IElement2D> { outlineXY2D }, new List<IElement1D>(), new List<IElement1D>(), wallsFlat, true, true, 50, TributaryAreaMethod.Voronoi, Tolerance.Distance, Tolerance.MacroDistance, Math.PI / 180 * 3);
-
-            var tributaryAreasXY = Structure.Compute.TributaryAreas(new List<IElement2D> { outlineXY2D }, new List<IElement1D>(), new List<IElement1D>(), new List<IElement2D> { ds2d }, true, true, 50, TributaryAreaMethod.Voronoi, Tolerance.Distance, Tolerance.MacroDistance, Math.PI / 180 * 3);
+           
+            var tributaryAreasXY = Structure.Compute.TributaryAreas(new List<IElement2D> { outlineXY2D }, new List<IElement1D>(), new List<IElement1D>(), wall2DElements, true, true, 50, TributaryAreaMethod.Voronoi, Tolerance.Distance, Tolerance.MacroDistance, Math.PI / 180 * 3);
 
             //Process TributaryAreas into Surface Outlines
-            var tributaryAreaXYList = tributaryAreasXY.Item1.SelectMany(x => x).ToList();
-            IEnumerable<IReadOnlyList<PlanarSurface>> k = tributaryAreaXYList.Select(t => t.Regions);
-            List<PlanarSurface> flatList = k.SelectMany(x => x).ToList();
-            var curveOutline = flatList.Select(x => x.OutlineCurve()).ToList();
-
-            List<PolyCurve> resultCurves = curveOutline.Select(o => BH.Engine.Geometry.Modify.Rotate(o, rotationOrigin, rotationAxis, -angle)).ToList();
-
+            List<PlanarSurface> tributaryAreaXYRegions = tributaryAreasXY.Item1[0].Select(x => (x as TributaryRegion).Regions[0]).ToList();
+          
             //Rotate back to original position
-            var RegionBackRot = BH.Engine.Geometry.Modify.Rotate(inputOutline, rotationOrigin, rotationAxis, -angle);
+            tributaryAreaXYRegions = tributaryAreaXYRegions.Select(a=>BH.Engine.Geometry.Modify.Rotate(a,rotationOrigin, rotationAxis, -angle)).ToList();
 
-
-
-
-            return resultCurves;
+            return tributaryAreaXYRegions;
         }
 
     }

@@ -24,36 +24,44 @@ namespace BH.Test.Adapter.WindLoad.TestFolder
         Point p7;
 
         Polyline SurfaceOutline;
-        List<Line> WallList;
+        List<Polyline> wallLineList;
 
 
         [Test]
         public void TributalAreaTest()
         {
-            //BH.Engine.Base.Compute.LoadAllAssemblies();
+
+
+
+            ////            //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "myJson.json");
+            //string jsonContent = File.ReadAllText("C:\\BHoMGit\\WindLoad_Toolkit\\.ci\\unit-tests\\WindLoad_Adapter_Test\\objectJsonFiles\\myJson.json");
+            ////BH.Engine.Base.Compute.LoadAllAssemblies();
+
+            ////Trying to to deserialize the json file
+            //var objects0=BH.Engine.Adapters.File.Compute.ReadFromJsonFile("C:\\BHoMGit\\WindLoad_Toolkit\\.ci\\unit-tests\\WindLoad_Adapter_Test\\objectJsonFiles\\myJson.json", true);
 
             p0 = new Point() { X = 0, Y = 0, Z = 0 };
-            p1 = new Point() { X = 10, Y = 0, Z = 0 };
-            p2 = new Point() { X = 10, Y = 0, Z = 10 };
-            p3 = new Point() { X = 0, Y = 0, Z = 10 };
+            p1 = new Point() { X = 0, Y = 0, Z = 10 };
+            p2 = new Point() { X = 0, Y = 10, Z = 10 };
+            p3 = new Point() { X = 0, Y = 10, Z = 0 };
             SurfaceOutline = new Polyline() { ControlPoints = new List<Point> { p0, p1, p2, p3, p0 } };
 
-            p4 = new Point() { X = 4, Y = 0, Z = 4 };
-            p5 = new Point() { X = 6, Y = 0, Z = 4 };
-            p6 = new Point() { X = 6, Y = 0, Z = 6 };
-            p7 = new Point() { X = 4, Y = 0, Z = 6 };
+            p4 = new Point() { X = 0, Y = 3, Z = 3 };
+            p5 = new Point() { X = 0, Y = 3, Z = 7 };
+            p6 = new Point() { X = 0, Y = 7, Z = 7 };
+            p7 = new Point() { X = 0, Y = 7, Z = 3 };
 
-            Line line0 = new Line() { Start = p4, End = p5 };
-            Line line1 = new Line() { Start = p5, End = p6 };
-            Line line2 = new Line() { Start = p6, End = p7 };
-            Line line3 = new Line() { Start = p7, End = p4 };
+            Polyline line0 = new Polyline() { ControlPoints = new List<Point> { p4, p5} };
+            Polyline line1 = new Polyline() { ControlPoints = new List<Point> { p5, p6} };
+            Polyline line2 = new Polyline() { ControlPoints = new List<Point> { p6, p7 } };
+            Polyline line3 = new Polyline() { ControlPoints = new List<Point> { p7, p4 } };
 
-            WallList = new List<Line> { line0, line1, line2, line3 };
-
-          
+            wallLineList = new List<Polyline> { line0, line1, line2, line3 };
 
 
-            var regions = Compute.InclinedTributaryAreas(SurfaceOutline, WallList);
+
+
+            //var regions = Compute.InclinedTributaryAreas(SurfaceOutline, wallLineList);
             int i = 5;
 
 

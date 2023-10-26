@@ -27,79 +27,88 @@
 
   <ItemGroup>
     <Reference Include="Adapter_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Adapter_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Adapter_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Analytical_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Analytical_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Analytical_Engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Analytical_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Analytical_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Analytical_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BHoM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BHoM_Adapter">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Data_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Data_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_Engine.dll</HintPath>
     </Reference>
     <Reference Include="Data_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dimensional_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="File_Adapter">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\File_Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="File_Engine">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\File_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="File_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\File_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Geometry_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Library_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Library_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Library_Engine.dll</HintPath>
     </Reference>
     <Reference Include="NUnit_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\NUnit_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\NUnit_Engine.dll</HintPath>
     </Reference>
     <Reference Include="NUnit_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\NUnit_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\NUnit_oM.dll</HintPath>
     </Reference>
     <Reference Include="Physical_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Spatial_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Spatial_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Spatial_Engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Spatial_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Spatial_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Spatial_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Structure_AdapterModules">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_AdapterModules.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Structure_AdapterModules.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Structure_Engine">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_Engine.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Structure_Engine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Structure_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Structure_oM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Structure_oM.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
