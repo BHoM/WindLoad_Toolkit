@@ -49,7 +49,7 @@ namespace BH.Engine.Adapters.WindLoad
     {
 
 
-        public static List<PlanarSurface> InclinedTributaryAreas(Polyline inputOutline, List<Polyline> wallsLines,Construction construc)
+        public static List<PlanarSurface> InclinedTributaryAreas(Polyline inputOutline, List<Polyline> wallsLines/*, Construction construc*/)
         {
             if (!inputOutline.IsClosed()) { BH.Engine.Base.Compute.RecordWarning($"The Polyline {inputOutline} is not closed! If possible the curve will be closed!"); };
             inputOutline = inputOutline.Close();
@@ -67,22 +67,23 @@ namespace BH.Engine.Adapters.WindLoad
             var outlineXY = BH.Engine.Geometry.Modify.Rotate(inputOutline, rotationOrigin, rotationAxis, angle);
             var wallsXYLines = wallsLines.Select(x => BH.Engine.Geometry.Modify.Rotate(x, rotationOrigin, rotationAxis, angle)).ToList();
 
-
             //Parameter preparation for TributaryArea calculation
             IElement2D outlineXY2D = Engine.Geometry.Create.PlanarSurface(outlineXY);
 
             //Generate Wall and extract Element2d and Flatten to list
-            var wallList = wallsXYLines.Select(l => BH.Engine.Physical.Create.Wall(new Line() {Start=l.ControlPoints().First(),End=l.ControlPoints().Last() },-1,construc,Offset.Undefined,"")).ToList();
-            var wall2DElements = wallList.Select(k=>(IElement2D)k).ToList();
+            var construction = BH.Engine.Library.Query.Match("BuildingEnvironments", "generic_partition"
+, true, true).DeepClone() as Construction;
+            var wallList = wallsXYLines.Select(l => BH.Engine.Physical.Create.Wall(new Line() { Start = l.ControlPoints().First(), End = l.ControlPoints().Last() }, -1, construction, Offset.Undefined, "")).ToList();
+            var wall2DElements = wallList.Select(k => (IElement2D)k).ToList();
 
-           
+
             var tributaryAreasXY = Structure.Compute.TributaryAreas(new List<IElement2D> { outlineXY2D }, new List<IElement1D>(), new List<IElement1D>(), wall2DElements, true, true, 50, TributaryAreaMethod.Voronoi, Tolerance.Distance, Tolerance.MacroDistance, Math.PI / 180 * 3);
 
             //Process TributaryAreas into Surface Outlines
             List<PlanarSurface> tributaryAreaXYRegions = tributaryAreasXY.Item1[0].Select(x => (x as TributaryRegion).Regions[0]).ToList();
-          
+
             //Rotate back to original position
-            tributaryAreaXYRegions = tributaryAreaXYRegions.Select(a=>BH.Engine.Geometry.Modify.Rotate(a,rotationOrigin, rotationAxis, -angle)).ToList();
+            tributaryAreaXYRegions = tributaryAreaXYRegions.Select(a => BH.Engine.Geometry.Modify.Rotate(a, rotationOrigin, rotationAxis, -angle)).ToList();
 
             return tributaryAreaXYRegions;
         }
